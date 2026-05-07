@@ -15,6 +15,14 @@ export const onRequestPost = async (context: any) => {
 
     const timestamp = new Date().toISOString();
     
+    // Check if KV is bound
+    if (!env.UNSUBSCRIBES) {
+      return new Response(JSON.stringify({ error: 'Database binding (UNSUBSCRIBES) is missing in Cloudflare settings.' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
     // Save to KV. We use the email as the key.
     await env.UNSUBSCRIBES.put(email, JSON.stringify({ timestamp, reason: body.reason || '' }));
 
