@@ -1,0 +1,14 @@
+{
+  "name": "life-reset-landing",
+  "compatibility_date": "2024-03-20",
+  "pages_build_output_dir": "dist",
+  "assets": {
+    "not_found_handling": "single-page-application"
+  },
+  "kv_namespaces": [
+    {
+      "binding": "UNSUBSCRIBES",
+      "id": "0ba53d27e5df481f91ce1f18b0080f25"
+    }
+  ]
+}
