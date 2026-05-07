@@ -77,9 +77,18 @@ You have three easy options. Choose one and follow the snippet insertion steps.
 4. Commit & redeploy. Live traffic appears in Plausible’s dashboard.
 
 ### 5. (Optional) Use a custom domain
-1. In Cloudflare DNS, add an **A** record for `@` (or a **CNAME** for `www`) that points to `cname.vercel-dns.com` – Cloudflare Pages provides the exact target in the Pages UI under **Custom domains**.
-2. Verify the domain in the Pages project settings.
-3. After propagation, the site will be reachable at `https://yourdomain.com` and analytics continue to work.
+1. In the Cloudflare dashboard, go to **Pages → your project → Settings → Custom domains** and click **“Set up a custom domain”**.
+2. Enter the domain you own (e.g., `www.reset30days.com` or the apex `reset30days.com`) and press **Continue**.
+3. **DNS configuration**:
+   - **If the domain is already managed in Cloudflare**: Cloudflare will automatically add a **CNAME** record that points to `life-reset-landing.pages.dev`. Ensure the record is proxied (orange cloud).
+   - **If the domain is managed elsewhere** (GoDaddy, Namecheap, etc.):
+     - Create a **CNAME** record for the subdomain (`www`) that points to `life-reset-landing.pages.dev`.
+     - For the apex domain, create an **ALIAS**, **ANAME**, or use Cloudflare’s **CNAME flattening** to point to `life-reset-landing.pages.dev`. If your registrar does not support this, you can set a URL redirect from `example.com` to `www.example.com`.
+4. Return to the **Custom domains** panel; Cloudflare will verify the CNAME. Once the check passes, the status will turn **Active**.
+5. **SSL/TLS**: Cloudflare automatically provisions a Universal SSL certificate for the custom domain (usually ready within minutes). Ensure the SSL mode is set to **Full (strict)**.
+6. (Optional) Set up a redirect so that `example.com` forwards to `www.example.com` using a **Page Rule**:
+   - Rule: `example.com/*` → **Forwarding URL (301)** → Destination `https://www.example.com/$1`.
+7. Test the custom domain in a browser (`https://www.reset30days.com`). The lock icon should appear and the page should load the same content as the `*.pages.dev` preview.
 
 ---
 
