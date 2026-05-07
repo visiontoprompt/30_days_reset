@@ -34,8 +34,8 @@ git push origin main
    - **Project name** – e.g., `life-reset-landing`.
    - **Production branch** – `main` (or whatever branch you pushed to).
    - **Root directory** – `landing` (this tells Pages to serve files from that sub‑folder).
-   - **Build command** – *Leave blank* (no build needed for pure static files).
-   - **Build output directory** – *Leave blank* (defaults to the root directory you set).
+   - **Build command** – `npm run build` (This is a Vite/React project, so it needs to be built).
+   - **Build output directory** – `dist`
 5. Click **Save and Deploy**. Cloudflare will clone the repo, detect that it’s a static site, and publish it.
 
 ### 3. Verify the deployment
