@@ -7,6 +7,7 @@ import Footer from '../sections/Footer';
 export default function UnsubscribePage() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,14 +21,18 @@ export default function UnsubscribePage() {
         body: JSON.stringify({ email }),
       });
       
+      const data = await res.json();
+      
       if (res.ok) {
         setStatus('success');
         setEmail('');
       } else {
         setStatus('error');
+        setErrorMessage(data.error || 'Something went wrong. Please try again.');
       }
     } catch (err) {
       setStatus('error');
+      setErrorMessage('Failed to connect to the server. Please try again.');
     }
   };
 
@@ -73,7 +78,7 @@ export default function UnsubscribePage() {
             
             {status === 'error' && (
               <p className="mt-3 text-body-sm text-red-500 font-sans">
-                Something went wrong. Please try again.
+                {errorMessage}
               </p>
             )}
           </FadeInUp>
